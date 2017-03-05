@@ -1,0 +1,45 @@
+@import "~semantic-ui-css/semantic.min.css";
+
+#container {
+  margin: 80px auto;
+  max-width: 450px;
+  width: 90%;
+  padding: 15px;
+  
+  &:before {
+    transform: rotate(-1.7deg);
+  }
+
+  &:after {
+    transform: rotate(1.7deg);
+  }
+
+  & > h2 {
+    text-align: center;
+    margin: 10px 0px 20px;
+  }
+
+  & > #todo-list {
+     margin: 35px auto;
+     width: 100%;
+     max-width: 250px;
+
+     & > .todo-item {
+       margin: 15px 0px;
+     }
+  }
+
+  & > #controls {
+    margin: 15px auto;
+    width: 95%;
+    text-align: center;
+  }
+}
+
+body {
+  height: initial;
+}
+
+.ui.toggle.checkbox label::before {
+  background-color: rgba(0,0,0,.15);
+}

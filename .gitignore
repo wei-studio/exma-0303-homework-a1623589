@@ -1,0 +1,7 @@
+node_modules
+/**/.DS_Store
+.history
+.vscode
+yarn-error.log
+yarn.lock
+npm-debug.log
