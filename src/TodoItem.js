@@ -1,7 +1,7 @@
-var $ = require('jquery');
+const $ = require('jquery');
 
 // #todo-list jQuery DOM
-var $todoList = $('#todo-list');
+const $todoList = $('#todo-list');
 
 // TodoItem Component 的建構函數
 function TodoItem(data) {
@@ -21,7 +21,7 @@ function TodoItem(data) {
   }
 
   if (data.onToggle === undefined) {
-    this.onToggle = function(){};
+    this.onToggle = ()=>{};
   } else {
     this.onToggle = data.onToggle;
   }
@@ -34,25 +34,28 @@ function TodoItem(data) {
 }
 
 // 根據資料產生 UI 初始化的 HTML 字串
+// 這個好像不能用arrow function欸
 TodoItem.prototype.renderHTML = function() {
-  var isChecked = (this.isCompleted)? 'checked' : '';
-  return '<div class="todo-item">' +
-           '<div class="ui toggle checkbox">' +
-             '<input type="checkbox" name="public" ' + isChecked + '>' +
-             '<label>' + this.title + '</label>' +
-           '</div>' +
-         '</div>';
+  let isChecked = (this.isCompleted)? 'checked' : '';
+  // Template String 
+  return `<div class="todo-item">
+           <div class="ui toggle checkbox">
+             <input type="checkbox" name="public"  ${isChecked} >
+             <label> ${this.title} </label>
+           </div>
+         </div>`;
 }
 
 // 解析 HTML 字串來建立 DOM 物件，並加到畫面中
 TodoItem.prototype.createTodoDom = function() {
-  var html = this.renderHTML();
+  let html = this.renderHTML();
   this.dom = $.parseHTML(html)[0];
   this.inputDom = $(this.dom).find('input')[0];
   $todoList.append(this.dom);
 }
 
 // 呼叫 toggle 行為，並呼叫 onToggle callback function
+// 這個也不能使用arrow function
 TodoItem.prototype.toggleCompleted = function(isCompleted) {
   this.isCompleted = (isCompleted == undefined)? !this.isCompleted : isCompleted;
   $(this.inputDom).prop('checked', this.isCompleted);
@@ -63,10 +66,11 @@ TodoItem.prototype.toggleCompleted = function(isCompleted) {
 }
 
  // 綁定 onToggle 事件到 input DOM 上
+ // 當然這個也不行囉
 TodoItem.prototype.bindOnToggleEvent = function() {
-  var todoThis = this;
-  $(this.inputDom).change(function() {
-    var isCompleted = $(todoThis.inputDom).prop('checked');
+  const todoThis = this;
+  $(this.inputDom).change(() => {
+    let isCompleted = $(todoThis.inputDom).prop('checked');
     todoThis.toggleCompleted(isCompleted);
   });
 }
